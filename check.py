@@ -1,4 +1,4 @@
-import urllib
+import urllib2
 import sys
 import time
 # from lxml import html
@@ -22,10 +22,16 @@ version_tag = "<span class=\"infoslide-name\">Version:</span><span class=\"infos
 date_tag = "<span class=\"infoslide-name\">Uploaded:</span><span class=\"infoslide-value\"><span style=\"\" class=\"datetime_utc\" data-utcdate=\""
 version_end = "</span>"
 date_end = "\">"
+
+
 url = "http://www.apkmirror.com/apk/niantic-inc/pokemon-go/"
 
+#add header for user agent
+req = urllib2.Request(url, None, {'User-agent' : 'Mozilla/5.0 (Windows; U; Windows NT 5.1; de; rv:1.9.1.5) Gecko/20091102 Firefox/3.5.5'})
+
 print "Getting page... please wait"
-page = urllib.urlopen(url).read()
+
+page = urllib2.urlopen(req).read()
 
 while (page.find(version_tag) > 0):
 	cur_version = get_string_from_page(version_tag, version_end)
